@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const cleanup = require('../lib/migrations/20200321153000-fix-account-deletion').cleanup
+
+cleanup().then(() => {
+  process.exit(0)
+})

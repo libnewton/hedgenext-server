@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="mobile-web-app-capable" content="yes">
+        <% if(typeof robots !== 'undefined' && robots) { %>
+        <meta name="robots" content="<%= robots %>">
+        <% } %>
+        <% if(typeof description !== 'undefined' && description) { %>
+        <meta name="description" content="<%= description %>">
+        <% } %>
+        <base href="<%- serverURL %>/">
+        <title><%= title %></title>
+        <%- include('includes/favicon.ejs') %>
+        <link rel="stylesheet" href="<%- serverURL %>/build/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href='<%- serverURL %>/build/emojify.js/dist/css/basic/emojify.min.css'>
+        <%- include('build/slide-pack-header') %>
+
+        <!-- For reveal.js theme -->
+        <% if(typeof theme !== 'undefined' && theme) { %>
+        <link rel="stylesheet" href="<%- serverURL %>/build/reveal.js/css/theme/<%= theme %>.css" id="theme">
+        <% } else { %>
+        <link rel="stylesheet" href="<%- serverURL %>/build/reveal.js/css/theme/black.css" id="theme">
+        <% } %>
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="<%- serverURL %>/build/reveal.js/lib/css/zenburn.css">
+        <!-- For overwrite reveal.js -->
+        <link rel="stylesheet" href="<%- serverURL %>/css/slide.css">
+
+        <!-- Printing and PDF exports -->
+        <script nonce="<%= cspNonce %>">
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '<%- serverURL %>/build/reveal.js/' + (window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css');
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body translate="no">
+        <div class="container">
+            <div class="reveal">
+                <div class="slides"><%= body %></div>
+            </div>
+
+            <div id="meta"><%= meta %></div>
+
+            <div class="footer">
+                <div class="unselectable hidden-print gray-font">
+                    <small>
+                        <span>
+                            <% if(lastchangeuserprofile) { %>
+                                <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(<%- lastchangeuserprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- lastchangeuserprofile.name %>"></i></span>
+                            <% } else { %>
+                                <span class="ui-no-lastchangeuser">&thinsp;<i class="fa fa-clock-o fa-fw"></i></span>
+                            <% } %>
+                            &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
+                            <span class="ui-lastchange text-uppercase" data-createtime="<%- createtime %>" data-updatetime="<%- updatetime %>"></span>
+                        </span>
+                        <span class="pull-right"><%- viewcount %> views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a><a class="ui-print" href="" title="Open print view"><i class="fa fa-fw fa-print"></i></a></span>
+                        <br>
+                        <% if(ownerprofile && owner !== lastchangeuser) { %>
+                        <span class="ui-owner">
+                            &thinsp;<i class="ui-user-icon small" style="background-image: url(<%- ownerprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- ownerprofile.name %>"></i>
+                            &nbsp;<span class="text-uppercase">owned this note</span>
+                        </span>
+                        <% } %>
+                    </small>
+                </div>
+                <% if(typeof disqus !== 'undefined' && disqus && !dnt) { %>
+                <div class="slides-disqus">
+                    <%- include('shared/disqus') %>
+                </div>
+                <% } %>
+            </div>
+        </div>
+
+        <script src="<%= serverURL %>/js/mathjax-config-extra.js"></script>
+        <script src="<%- serverURL %>/build/MathJax/MathJax.js" defer></script>
+        <script src="<%- serverURL %>/build/MathJax/config/TeX-AMS-MML_HTMLorMML.js" defer></script>
+        <script src="<%- serverURL %>/build/MathJax/config/Safe.js" defer></script>
+        <%- include('build/slide-pack-scripts') %>
+    </body>
+</html>
+
+<%- include('shared/ga') %>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <% if(typeof robots !== 'undefined' && robots) { %>
+    <meta name="robots" content="<%= robots %>">
+    <% } %>
+    <% if(typeof description !== 'undefined' && description) { %>
+    <meta name="description" content="<%= description %>">
+    <% } %>
+    <% for (var og in opengraph) { %>
+    <% if (opengraph.hasOwnProperty(og) && opengraph[og].trim() !== '') { %>
+    <meta property="og:<%= og %>" content="<%= opengraph[og] %>">
+    <% }} if (!opengraph.hasOwnProperty('image')) { %>
+    <meta property="og:image" content="<%- serverURL %>/icons/android-chrome-512x512.png">
+    <meta property="og:image:alt" content="HedgeDoc logo">
+    <meta property="og:image:type" content="image/png">
+    <% } %>
+    <base href="<%- serverURL %>/">
+    <title><%= title %></title>
+    <%- include('includes/favicon.ejs') %>
+    <link rel="stylesheet" href='<%- serverURL %>/build/emojify.js/dist/css/basic/emojify.min.css'>
+    <%- include('build/pretty-pack-header') %>
+</head>
+
+<body style="display:none;">
+    <div class="ui-infobar container-fluid unselectable hidden-print">
+        <small>
+            <span>
+                <% if(lastchangeuserprofile) { %>
+                    <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(<%- lastchangeuserprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- lastchangeuserprofile.name %>"></i></span>
+                <% } else { %>
+                  <span class="ui-no-lastchangeuser">&thinsp;<i class="fa fa-clock-o fa-fw" style="width: 18px;"></i></span>
+                <% } %>
+                &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
+                <span class="ui-lastchange text-uppercase" data-createtime="<%- createtime %>" data-updatetime="<%- updatetime %>"></span>
+            </span>
+            <span class="pull-right"><%- viewcount %> views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a></span>
+            <br>
+            <% if(ownerprofile && owner !== lastchangeuser) { %>
+            <span class="ui-owner">
+                &thinsp;<i class="ui-user-icon small" style="background-image: url(<%- ownerprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- ownerprofile.name %>"></i>
+                &nbsp;<span class="text-uppercase">owned this note</span>
+            </span>
+            <% } %>
+        </small>
+    </div>
+    <div id="doc" class="container markdown-body" <% if (lang) { %> lang="<%= lang %>"<% } %>><%= body %></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="display:none;"></div>
+    <% if(typeof disqus !== 'undefined' && disqus && !dnt) { %>
+    <div class="container-fluid" style="max-width: 758px; margin-bottom: 40px;">
+        <%- include('shared/disqus') %>
+    </div>
+    <% } %>
+</body>
+
+</html>
+<script src="<%= serverURL %>/js/mathjax-config-extra.js"></script>
+<script src="<%- serverURL %>/build/MathJax/MathJax.js" defer></script>
+<script src="<%- serverURL %>/build/MathJax/config/TeX-AMS-MML_HTMLorMML.js" defer></script>
+<script src="<%- serverURL %>/build/MathJax/config/Safe.js" defer></script>
+<%- include('build/pretty-pack-scripts') %>
+<%- include('shared/ga') %>

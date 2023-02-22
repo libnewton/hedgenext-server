@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+version_lt() { test "$(printf '%s\n' "$@" | { [ "$(uname)" = "Linux" ] && (sort -V || sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n;) } | tail -n 1)" != "$1"; }
+
+# run command at repo root
+CURRENT_PATH=$PWD
+if [ -d .git ]; then
+  cd "$(git rev-parse --show-toplevel)"
+fi
+
+if ! type yarn > /dev/null; then
+  cat << EOF
+FATAL: Yarn could not be found.
+
+Please follow the official installation instructions at
+https://classic.yarnpkg.com/en/docs/install
+and try again.
+EOF
+  exit 1
+fi
+
+if version_lt "$(yarn --version)" '1.22.0'; then
+  cat << EOF
+FATAL: Your Yarn version is not supported.
+
+Please upgrade to version 1.22.0 or higher and try again.
+See https://classic.yarnpkg.com/en/docs/install for instructions.
+EOF
+  exit 1
+fi
+
+if version_lt "$(node --version)" 'v14.13.1'; then
+  cat << EOF
+FATAL: Your Node.js version is not supported.
+
+Please upgrade to version 14.13.1 or higher and try again.
+We recommend running the latest LTS release, see https://nodejs.org/en/about/releases/ for details.
+EOF
+  exit 1
+fi
+
+echo "Copying config files..."
+if [ ! -f config.json ]; then
+  cp config.json.example config.json
+fi
+
+echo "Installing packages..."
+yarn install --production=true --frozen-lockfile
+
+cat << EOF
+If you want to build the frontend yourself, you need to run 'yarn install --frozen-lockfile' before 'yarn build' to install the devDependencies for the build process.
+
+Edit the following config file to setup HedgeDoc server and client.
+Read more info at https://docs.hedgedoc.org/configuration/
+
+* config.json           -- HedgeDoc config
+EOF
+
+# change directory back
+cd "$CURRENT_PATH"

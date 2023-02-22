@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-env browser, jquery */
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global Cookies, moment, serverurl,
@@ -95,7 +96,7 @@ require('../css/site.css')
 
 require('highlight.js/styles/github-gist.css')
 require('./fix-aria-hidden-for-modals')
-
+require('../css/mod.css')
 let defaultTextHeight = 20
 let viewportMargin = 20
 const defaultEditorMode = 'gfm'
@@ -1196,6 +1197,30 @@ if (DROPBOX_APP_KEY) {
   ui.toolbar.import.dropbox.hide()
   ui.toolbar.export.dropbox.hide()
 }
+ui.toolbar.pdf.on('click', function (e) {
+  e.preventDefault()
+  e.stopPropagation()
+  const dest = serverurl + '/' + noteid
+  // change to please wait (text only, not icon)
+  ui.toolbar.pdf.html(ui.toolbar.pdf.html().replace('PDF', 'Please wait...'))
+  // disable button
+  ui.toolbar.pdf.attr('disabled', true)
+  // submit http post form
+  // submit post request into new tab
+  const form = $('<form>')
+  // add hidden input
+  form.append($('<input>').attr('type', 'hidden').attr('name', 'url').val(dest))
+  form.attr('method', 'post')
+  form.attr('action', '/pdfexport')
+  form.attr('target', '_blank')
+  form.appendTo('body')
+  form.submit()
+  form.remove()
+  // undo button change
+  ui.toolbar.pdf.html(ui.toolbar.pdf.html().replace('Please wait...', 'PDF'))
+  // enable button
+  ui.toolbar.pdf.attr('disabled', false)
+})
 
 // button actions
 // share
@@ -3246,11 +3271,17 @@ editorInstance.on('beforeChange', function (cm, change) {
       change.canceled = true
       switch (permission) {
         case 'editable':
-          $('.signin-modal').modal('show')
+          window.location.href = '/auth/oauth2?redirect=' + window.location.href
+          //          $('.signin-modal').modal('show')
           break
         case 'locked':
         case 'private':
-          $('.locked-modal').modal('show')
+          if (window.LOGGED_IN === true) {
+            $('.locked-modal').modal('show')
+          } else {
+            window.location.href = '/auth/oauth2?redirect=' + window.location.href
+          }
+
           break
       }
     }
@@ -3915,6 +3946,34 @@ $(editor.getInputField())
           return !isInCode && !isInContainerSyntax
         }
       },
+      // {
+
+      //   match: /(^|\n)(.*)\%\%(.*)\%\%(.*)$/,
+      //   search: function (term, callback) {
+      //     const line = editor.getLine(editor.getCursor().line)
+      //     term = line.match(this.match)
+      //     console.error(term, "FFFFf")
+      //     callback(term)
+      //   },
+      //   template: function (value) {
+
+      //     return (
+      //       '<span style="background-color: lime; padding: 0.2px;">' +
+      //       value +
+      //       '></span>'
+      //     )
+      //   },
+      //   replace: function (value) {
+      //     return '$1%%' + value + '%% '
+      //   },
+      //   index: 1,
+      //   context: function (text) {
+      //     checkInCode()
+      //     checkInContainer()
+      //     checkInContainerSyntax()
+      //     return !isInCode && !isInContainerSyntax
+      //   }
+      // },
       {
         // Code block language strategy
         langs: supportCodeModes,

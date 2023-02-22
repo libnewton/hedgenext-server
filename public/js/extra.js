@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable prefer-regex-literals */
 /* eslint-env browser, jquery */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 /* global moment, serverurl */
@@ -117,9 +119,9 @@ function getTitle (view) {
 export function renderTitle (view) {
   let title = getTitle(view)
   if (title) {
-    title += ' - HedgeDoc'
+    title += ' - HedgeNext'
   } else {
-    title = 'HedgeDoc - Collaborative markdown notes'
+    title = 'HedgeNext - Collaborative markdown notes'
   }
   return title
 }
@@ -1217,6 +1219,17 @@ const emojijsPlugin = new Plugin(
     return div[0].outerHTML
   }
 )
+const greenMarkPlugin = new Plugin(
+  // regexp to match emoji shortcodes :something:
+  // We generate an universal regex that guaranteed only contains the
+  // emojies we have available. This should prevent all false-positives
+  new RegExp('\%\%(.*)\%\%', 'i'),
+
+  (match, utils) => {
+    const div = $(`<span style="background-color: lime; padding: 2px;">${match[1]}</span>`)
+    return div[0].outerHTML
+  }
+)
 
 // yaml meta, from https://github.com/eugeneware/remarkable-meta
 function get (state, line) {
@@ -1264,6 +1277,7 @@ function metaPlugin (md) {
 
 md.use(metaPlugin)
 md.use(emojijsPlugin)
+md.use(greenMarkPlugin)
 md.use(youtubePlugin)
 md.use(vimeoPlugin)
 md.use(gistPlugin)

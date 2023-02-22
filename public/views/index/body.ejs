@@ -9,8 +9,8 @@
                         <ul class="nav masthead-nav">
                             <li class="ui-home<% if(!signin) { %> active<% } %>"><a href="#"><%= __('Intro') %></a>
                             </li>
-                            <li class="ui-history<% if(signin) { %> active<% } %>"><a href="#"><%= __('History') %></a>
-                            </li>
+                            <!-- <li class="ui-history<% if(signin) { %> active<% } %>"><a href="#"><%= __('History') %></a> -->
+                            <!-- </li> -->
                             <div class="ui-signin" style="float: right; margin-top: 8px;<% if(signin) { %> display: none;<% } %>">
                                 <% if (allowAnonymous) { %>
                                 <a type="button" href="<%- serverURL %>/new" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> <%= __('New guest note') %></a>
@@ -40,12 +40,15 @@
 
             <div id="home" class="section"<% if(signin) { %> style="display:none;"<% } %>>
                 <div class="inner cover">
-                    <h1 class="cover-heading"><img src="<%- serverURL %>/banner/banner_vertical_color.svg" width="400" alt="HedgeDoc logo"></h1>
+                    <h1 class="cover-heading">
+                        HedgeNext
+                        <!-- <img src="<%- serverURL %>/banner/banner_vertical_color.svg" width="400" alt="HedgeNext logo"> -->
+                    </h1>
                     <p class="lead">
-                        <%= __('Best way to write and share your knowledge in markdown.') %>
+                        <%= __('Best way to write and share your knowledge in markdown in your Nextcloud.') %>
                     </p>
                     <span class="alert alert-info" style="display: inline-block;">
-                        CodiMD was renamed to HedgeDoc. <a href="https://hedgedoc.org/history/" rel="noopener noreferrer" target="_blank" class="text-danger">Read more</a>
+                        This is a customized fork of <a href="https://hedgedoc.org/" rel="noopener noreferrer" target="_blank" class="text-danger">HedgeNext</a>
                     </span>
                     <% if (infoMessage && infoMessage.length > 0) { %>
                     <div class="alert alert-info" style="max-width: 400px; margin: 0 auto;"><%= infoMessage %></div>
@@ -64,7 +67,7 @@
                         <a type="button" href="<%- serverURL %>/features" class="btn btn-lg btn-primary" style="min-width: 200px;"><%= __('Explore all features') %></a>
                         <br>
                         <br>
-                        <img src="<%- serverURL %>/screenshot.png" class="screenshot ui-signin">
+                        <!-- <img src="<%- serverURL %>/screenshot.png" class="screenshot ui-signin"> -->
                     </span>
                     <div class="lead row" style="width: 90%; margin: 0 auto;">
                         <div class="col-md-4 inner">
@@ -88,7 +91,7 @@
                     </div>
                 </div>
             </div>
-
+<!-- 
             <div id="history" class="section"<% if(!signin) { %> style="display:none;"<% } %>>
                 <div class="ui-signin"<% if(signin) { %> style="display:none;"<% } %>>
                     <p><%= __('Below is the history from browser') %></p>
@@ -123,17 +126,17 @@
                 <ul id="history-list" class="list">
                 </ul>
                 <ul class="pagination"></ul>
-            </div>
+            </div> -->
 
             <div class="mastfoot">
                 <div class="inner">
-                    <select class="ui-locale"></select>
+                    <!-- <select class="ui-locale"></select> -->
                     <p>
                         <%- __('Powered by %s', '<a href="https://hedgedoc.org">HedgeDoc</a>') %> | <a href="<%- serverURL %>/s/release-notes" target="_blank" rel="noopener"><%= __('Releases') %></a> | <a href="<%- sourceURL %>" target="_blank" rel="noopener"><%= __('Source Code') %></a><% if(imprint) { %> | <a href="<%- serverURL %>/s/imprint" target="_blank" rel="noopener"><%= __('Imprint') %></a><% } %><% if(privacyStatement) { %> | <a href="<%- serverURL %>/s/privacy" target="_blank" rel="noopener"><%= __('Privacy') %></a><% } %><% if(termsOfUse) { %> | <a href="<%- serverURL %>/s/terms-of-use" target="_blank" rel="noopener"><%= __('Terms of Use') %></a><% } %>
                     </p>
-                    <h6 class="social-foot">
+                    <!-- <h6 class="social-foot">
                         <%- __('Follow us on %s and %s.', '<a href="https://github.com/hedgedoc/hedgedoc" target="_blank" rel="noopener"><i class="fa fa-github"></i> GitHub</a>, <a href="https://community.hedgedoc.org" target="_blank" rel="noopener"><i class="fa fa-users" aria-hidden="true"></i> Discourse</a>, <a href="https://chat.hedgedoc.org" target="_blank" rel="noopener"><i class="fa fa-comments"></i> Matrix</a>, <a href="https://social.hedgedoc.org/mastodon" target="_blank" rel="noopener"><i class="fa fa-mastodon"></i> Mastodon</a>', '<a href="https://translate.hedgedoc.org" target="_blank" rel="noopener"><i class="fa fa-globe"></i> POEditor</a>') %>
-                    </h6>
+                    </h6> -->
                 </div>
             </div>
         </div>

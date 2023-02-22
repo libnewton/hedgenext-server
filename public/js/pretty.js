@@ -23,7 +23,7 @@ require('../css/slide-preview.css')
 require('../css/site.css')
 
 require('highlight.js/styles/github-gist.css')
-
+require('../css/mod.css')
 const markdown = $('#doc.markdown-body')
 const text = markdown.text()
 const lastMeta = md.meta

@@ -126,5 +126,7 @@
     "Protected - Only owner can edit (forbid guests)": "Protected - Only owner can edit (forbid guests)",
     "Private - Only owner can view & edit": "Private - Only owner can view & edit",
     "changed": "changed",
-    "created": "created"
+    "created": "created",
+    "PDF": "PDF",
+    "Best way to write and share your knowledge in markdown in your Nextcloud.": "Best way to write and share your knowledge in markdown in your Nextcloud."
 }

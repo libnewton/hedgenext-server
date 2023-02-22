@@ -13,16 +13,19 @@
             <ul class="dropdown-menu list" role="menu" aria-labelledby="menu">
             </ul>
         </div>
-        <a class="navbar-brand pull-left header-brand" href="<%- serverURL %>/" title="HedgeDoc (formerly CodiMD)">
-            <img src="<%- serverURL %>/banner/banner_h_bw.svg" alt="HedgeDoc" class="h-100 no-night">
-            <img src="<%- serverURL %>/banner/banner_h_wb.svg" alt="HedgeDoc" class="h-100 night">
+        <a class="navbar-brand pull-left header-brand" title="HedgeNext">
+            <div style="font-size: 2rem; display: ruby-base; vertical-align: middle;">HedgeNext</div>
+            <!-- <img src="<%- serverURL %>/banner/banner_h_bw.svg" alt="HedgeNext" class="h-100 no-night">
+            <img src="<%- serverURL %>/banner/banner_h_wb.svg" alt="HedgeNext" class="h-100 night"> -->
         </a>
         <div class="nav-mobile pull-right visible-xs">
             <a data-toggle="dropdown" class="btn btn-link">
                 <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu list" role="menu" aria-labelledby="menu">
-                <li role="presentation"><a role="menuitem" class="ui-new" tabindex="-1" href="<%- serverURL %>/new" target="_blank" rel="noopener"><i class="fa fa-plus fa-fw"></i> <%= __('New') %></a>
+                <!-- <li role="presentation"><a role="menuitem" class="ui-new" tabindex="-1" href="<%- serverURL %>/new" target="_blank" rel="noopener"><i class="fa fa-plus fa-fw"></i> <%= __('New') %></a>
+                </li> -->
+                <li role="presentation"><a role="menuitem" class="ui-dl" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-download"></i> PDF</a>
                 </li>
                 <li role="presentation"><a role="menuitem" class="ui-publish" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-share-square-o fa-fw"></i> <%= __('Publish') %></a>
                 </li>
@@ -112,10 +115,12 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" style="padding:0;">
-            <li>
+            <!-- <li>
                 <a href="<%- serverURL %>/new" target="_blank" rel="noopener" class="ui-new">
                     <i class="fa fa-plus"></i> <%= __('New') %>
                 </a>
+            </li> -->
+            <li role="presentation"><a role="menuitem" class="ui-dl" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-download"></i> PDF</a>
             </li>
             <li>
                 <a href="#" target="_blank" rel="noopener" class="ui-publish">
@@ -135,27 +140,27 @@
                     <% if(enableGitHubGist || enableDropBoxSave || enableGitlabSnippets) { %>
                     <li class="divider"></li>
                     <li class="dropdown-header"><%= __('Export') %></li>
-                    <li role="presentation"><a role="menuitem" class="ui-save-dropbox" tabindex="-1" href="#" target="_self"><i class="fa fa-dropbox fa-fw"></i> Dropbox</a>
-                    </li>
-                    <% if(enableGitHubGist) { %>
+                    <!-- <li role="presentation"><a role="menuitem" class="ui-save-dropbox" tabindex="-1" href="#" target="_self"><i class="fa fa-dropbox fa-fw"></i> Dropbox</a>
+                    </li> -->
+                    <!-- <% if(enableGitHubGist) { %>
                     <li role="presentation"><a role="menuitem" class="ui-save-gist" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-github fa-fw"></i> Gist</a>
                     </li>
-                    <% } %>
-                    <% if(enableGitlabSnippets) { %>
+                    <% } %> -->
+                    <!-- <% if(enableGitlabSnippets) { %>
                     <li role="presentation"><a role="menuitem" class="ui-save-snippet" href="#"><i class="fa fa-gitlab fa-fw"></i> Snippet</a>
                     </li>
-                    <% } %>
+                    <% } %> -->
                     <% } %>
                     <li class="divider"></li>
                     <li class="dropdown-header"><%= __('Import') %></li>
-                    <li role="presentation"><a role="menuitem" class="ui-import-dropbox" tabindex="-1" href="#" target="_self"><i class="fa fa-dropbox fa-fw"></i> Dropbox</a>
+                    <!-- <li role="presentation"><a role="menuitem" class="ui-import-dropbox" tabindex="-1" href="#" target="_self"><i class="fa fa-dropbox fa-fw"></i> Dropbox</a>
                     </li>
                     <li role="presentation"><a role="menuitem" class="ui-import-gist" href="#" data-toggle="modal" data-target="#gistImportModal"><i class="fa fa-github fa-fw"></i> Gist</a>
-                    </li>
-                    <% if(enableGitlabSnippets) { %>
+                    </li> -->
+                    <!-- <% if(enableGitlabSnippets) { %>
                     <li role="presentation"><a role="menuitem" class="ui-import-snippet" href="#"><i class="fa fa-gitlab fa-fw"></i> Snippet</a>
                     </li>
-                    <% } %>
+                    <% } %> -->
                     <li role="presentation"><a role="menuitem" class="ui-import-clipboard" href="#" data-toggle="modal" data-target="#clipboardModal"><i class="fa fa-clipboard fa-fw"></i> <%= __('Clipboard') %></a>
                     </li>
                     <li class="divider"></li>

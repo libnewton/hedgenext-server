@@ -18,8 +18,10 @@ require('../css/extra.css')
 require('../css/slide-preview.css')
 require('../css/font.css')
 require('../css/site.css')
+
 const $ = require('jquery')
 window.jQuery = $
 window.$ = $
 require('bootstrap')
 require('gist-embed/gist-embed.min')
+require('../css/mod.css')

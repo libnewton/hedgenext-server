@@ -65,7 +65,7 @@ if (!config.useSSL && config.protocolUseSSL) {
 
 // check if the request is from container healthcheck
 function isContainerHealthCheck (req, _) {
-  return req.headers['user-agent'] === 'hedgedoc-container-healthcheck/1.0' && req.ip === '127.0.0.1'
+  return req.headers['user-agent'] === 'hedgenext-container-healthcheck/1.0' && req.ip === '127.0.0.1'
 }
 
 // logger
@@ -199,31 +199,31 @@ app.set('view engine', 'ejs')
 // set generally available variables for all views
 app.locals.serverURL = config.serverURL
 app.locals.sourceURL = config.sourceURL
-app.locals.allowAnonymous = config.allowAnonymous
-app.locals.allowAnonymousEdits = config.allowAnonymousEdits
+app.locals.allowAnonymous = false
+app.locals.allowAnonymousEdits = true
 app.locals.authProviders = {
-  facebook: config.isFacebookEnable,
-  twitter: config.isTwitterEnable,
-  github: config.isGitHubEnable,
-  gitlab: config.isGitLabEnable,
-  mattermost: config.isMattermostEnable,
-  dropbox: config.isDropboxEnable,
-  google: config.isGoogleEnable,
-  ldap: config.isLDAPEnable,
-  ldapProviderName: config.ldap.providerName,
-  saml: config.isSAMLEnable,
-  samlProviderName: config.saml.providerName,
-  oauth2: config.isOAuth2Enable,
-  oauth2ProviderName: config.oauth2.providerName,
-  openID: config.isOpenIDEnable,
-  email: config.isEmailEnable,
-  allowEmailRegister: config.allowEmailRegister
+  facebook: false,
+  twitter: false,
+  github: false,
+  gitlab: false,
+  mattermost: false,
+  dropbox: false,
+  google: false,
+  ldap: false,
+  ldapProviderName: false,
+  saml: false,
+  samlProviderName: false,
+  oauth2: true,
+  oauth2ProviderName: 'Nextcloud',
+  openID: false,
+  email: false,
+  allowEmailRegister: false
 }
 
 // Export/Import menu items
-app.locals.enableDropBoxSave = config.isDropboxEnable
-app.locals.enableGitHubGist = config.isGitHubEnable
-app.locals.enableGitlabSnippets = config.isGitlabSnippetsEnable
+app.locals.enableDropBoxSave = false
+app.locals.enableGitHubGist = false
+app.locals.enableGitlabSnippets = false
 
 app.use(require('./lib/web/baseRouter'))
 app.use(require('./lib/web/statusRouter'))
@@ -322,7 +322,7 @@ function handleTermSignals () {
     logger.info('Forcefully exiting.')
     process.exit(1)
   }
-  logger.info('HedgeDoc has been killed by signal, try to exit gracefully...')
+  logger.info('HedgeNext has been killed by signal, try to exit gracefully...')
   alreadyHandlingTermSignals = true
   realtime.maintenance = true
   // disconnect all socket.io clients

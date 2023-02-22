@@ -1,0 +1,127 @@
+.CodeMirror {
+    font-family: 'Droid Sans Mono', 'monospace', monospace!important;
+    font-display: swap;
+    
+    }
+    
+    @media (max-width: 1000px) {
+        
+    .navbar-brand {
+        display: none!important;
+    }
+    }
+    
+    
+    .hljs {
+      background:#fff;
+      color:#333;
+      display:block;
+      overflow-x:auto;
+      padding:.5em
+     }
+     .hljs-comment,
+     .hljs-meta {
+      color:#969896!important;
+     }
+     .hljs-emphasis,
+     .hljs-quote,
+     .hljs-strong,
+     .hljs-template-variable,
+     .hljs-variable {
+      color:#df5000!important;
+     }
+     .hljs-keyword,
+     .hljs-selector-tag,
+     .hljs-type {
+      color:#d73a49!important;
+     }
+     .hljs-attribute,
+     .hljs-bullet,
+     .hljs-literal,
+     .hljs-symbol {
+      color:#0086b3!important;
+     }
+     .hljs-name,
+     .hljs-section {
+      color:#63a35c!important;
+     }
+     .hljs-tag {
+      color:#333!important;
+     }
+     .hljs-attr,
+     .hljs-selector-attr,
+     .hljs-selector-class,
+     .hljs-selector-id,
+     .hljs-selector-pseudo,
+     .hljs-title {
+      color:#6f42c1!important;
+     }
+     .hljs-addition {
+      background-color:#eaffea;
+      color:#55a532!important;
+     }
+     .hljs-deletion {
+      background-color:#ffecec;
+      color:#bd2c00!important;
+     }
+     .hljs-link {
+      text-decoration:underline
+     }
+     .hljs-number {
+      color:#005cc5!important;
+     }
+     .hljs-string {
+      color:#032f62!important;
+     }
+     .emoji {
+      background-size:contain;
+      display:inline-block;
+      height:1.5em;
+      margin-bottom:-.25em;
+      width:1.5em
+     }
+     .mark {
+      background-color:#ff0!important;
+     }
+    
+     mark {
+      background-color:#ff0!important;
+     }
+     @media print {
+       a[href]::after {
+          content: unset!important;
+      }
+      a {
+        color: #3263b1!important;
+      }
+      body {
+        width: 860px!important;
+      }
+      .xfigure {
+        font-size:1.3rem!important;
+        overflow-x: auto!important;
+        margin: 1.2em 0px!important;
+        max-width: calc(100% + 16px)!important;
+        padding: 0px!important;
+      }
+      .markdown-body {
+        font-size: 14px!important;
+      }
+      h1 {
+        font-size: 3rem!important;
+      }
+      h2 {
+        font-size: 2rem!important;
+      }
+      h3 {
+        font-size: 1.8rem!important;
+      }
+      .markdown-body blockquote {
+        border-left: 0.3em solid #ddd!important;
+        border-top: 0!important;
+        border-right: 0!important;
+        border-bottom: 0!important;
+    
+      }
+     }
+    

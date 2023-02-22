@@ -19,7 +19,7 @@
     <meta property="og:<%= og %>" content="<%= opengraph[og] %>">
     <% }} if (!opengraph.hasOwnProperty('image')) { %>
     <meta property="og:image" content="<%- serverURL %>/icons/android-chrome-512x512.png">
-    <meta property="og:image:alt" content="HedgeDoc logo">
+    <meta property="og:image:alt" content="HedgeHedgeNextDoc logo">
     <meta property="og:image:type" content="image/png">
     <% } %>
     <base href="<%- serverURL %>/">
@@ -62,11 +62,7 @@
         </div>
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="display:none;"></div>
-    <% if(typeof disqus !== 'undefined' && disqus && !dnt) { %>
-    <div class="container-fluid" style="max-width: 758px; margin-bottom: 40px;">
-        <%- include('shared/disqus') %>
-    </div>
-    <% } %>
+
 </body>
 
 </html>
@@ -75,4 +71,3 @@
 <script src="<%- serverURL %>/build/MathJax/config/TeX-AMS-MML_HTMLorMML.js" defer></script>
 <script src="<%- serverURL %>/build/MathJax/config/Safe.js" defer></script>
 <%- include('build/pretty-pack-scripts') %>
-<%- include('shared/ga') %>

@@ -18,6 +18,7 @@ export function resetCheckAuth () {
 }
 
 export function setLoginState (bool, id) {
+  window.LOGGED_IN = bool
   Cookies.set('loginstate', bool, {
     expires: 365,
     sameSite: window.cookiePolicy,

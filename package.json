@@ -1,5 +1,5 @@
 {
-  "name": "HedgeDoc",
+  "name": "HedgeNext",
   "version": "1.9.7",
   "description": "The best platform to write and share markdown.",
   "main": "app.js",
@@ -17,7 +17,6 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "@passport-next/passport-openid": "^1.0.0",
     "Idle.Js": "git+https://github.com/shawnmclean/Idle.js",
     "archiver": "^5.0.2",
     "async": "^3.0.0",

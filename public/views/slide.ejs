@@ -68,11 +68,6 @@
                         <% } %>
                     </small>
                 </div>
-                <% if(typeof disqus !== 'undefined' && disqus && !dnt) { %>
-                <div class="slides-disqus">
-                    <%- include('shared/disqus') %>
-                </div>
-                <% } %>
             </div>
         </div>
 
@@ -84,4 +79,3 @@
     </body>
 </html>
 
-<%- include('shared/ga') %>

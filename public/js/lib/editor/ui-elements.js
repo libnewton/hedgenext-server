@@ -11,6 +11,7 @@ export const getUIElements = () => ({
     new: $('.ui-new'),
     publish: $('.ui-publish'),
     pdf: $('.ui-dl'),
+    raw: $('.ui-raw'),
     extra: {
       revision: $('.ui-extra-revision'),
       slide: $('.ui-extra-slide')

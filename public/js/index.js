@@ -1225,6 +1225,7 @@ ui.toolbar.pdf.on('click', function (e) {
 // button actions
 // share
 ui.toolbar.publish.attr('href', noteurl + '/publish')
+ui.toolbar.raw.attr('href', noteurl + '/raw')
 // extra
 // slide
 ui.toolbar.extra.slide.attr('href', noteurl + '/slide')

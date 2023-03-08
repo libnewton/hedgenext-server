@@ -1226,7 +1226,7 @@ const greenMarkPlugin = new Plugin(
   new RegExp('\%\%(.*)\%\%', 'i'),
 
   (match, utils) => {
-    const div = $(`<span style="background-color: lime; padding: 2px;">${match[1]}</span>`)
+    const div = $(`<span class="greenmark" style="background-color: lime; padding: 2px;">${match[1]}</span>`)
     return div[0].outerHTML
   }
 )

@@ -3,7 +3,12 @@
     font-display: swap;
     
     }
-    
+    @media print {
+      .greenmark {
+        background-color: lime!important;
+  
+      }
+    }
     @media (max-width: 1000px) {
         
     .navbar-brand {

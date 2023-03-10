@@ -1,0 +1,24 @@
+  name: Push into main branch
+  on:
+    push:
+      branches: [ main ]
+
+  jobs:
+    context:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        id: build
+        uses: cloudposse/github-action-docker-build-push@main
+        with:
+          registry: registry.hub.docker.com
+          organization: "${{ github.event.repository.owner.login }}"
+          repository: "hedgenext"
+          login: "${{ secrets.DOCKERHUB_USERNAME }}"
+          password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+      outputs:
+        image: ${{ steps.build.outputs.image }}
+        tag: ${{ steps.build.outputs.tag }}

@@ -17,7 +17,7 @@ backups/
 *.sqlite
 
 # ignore config files
-config.json
+config.env.json
 .sequelizerc
 
 # ignore webpack build

@@ -596,6 +596,7 @@ function setNeedRefresh () {
 }
 
 setloginStateChangeEvent(function () {
+  fixTemplates()
   setRefreshModal('user-state-changed')
   setNeedRefresh()
 })
@@ -1417,6 +1418,187 @@ $('a[href="#"]').click(function (e) {
 })
 
 // modal actions
+let templates = []
+let templatesViewer = null
+
+const templatesList = ui.modal.templates.find('.ui-templates-list')
+let template = null
+ui.modal.templates.on('show.bs.modal', function (e) {
+  initTemplatesViewer()
+
+  parseTemplates(window.USER_TEMPLATES ? JSON.parse(window.USER_TEMPLATES) : [])
+})
+function checkTemplatesViewer () {
+  if (templatesViewer) {
+    const container = $(templatesViewer.display.wrapper).parent()
+    $(templatesViewer.display.scroller).css('height', container.height() + 'px')
+    templatesViewer.refresh()
+  }
+}
+ui.modal.templates.on('shown.bs.modal', checkTemplatesViewer)
+$(window).resize(checkTemplatesViewer)
+function parseTemplates (_templates) {
+  templates = (_templates || []).sort((a, b) => b.time - a.time)
+  templatesList.html('')
+  for (let i = 0; i < templates.length; i++) {
+    const template = templates[i]
+    const item = $('<a class="list-group-item"></a>')
+    item.attr('data-template-time', template.time)
+    item.attr('data-template-name', template.name)
+    const itemHeading = $('<h4 class="list-group-item-heading"></h4>')
+    itemHeading.html(
+      '<i class="fa fa-file-text"></i> ' + template.name
+    )
+    const itemText = $('<p class="list-group-item-text"></p>')
+    itemText.html(
+      '<i class="fa fa-clock-o"></i> ' + moment(template.time).format('llll')
+    )
+    item.append(itemHeading).append(itemText)
+    item.click(function (e) {
+      const namec = $(this).attr('data-template-name')
+      selectTemplate(namec)
+    })
+    templatesList.append(item)
+  }
+  const createItm = $('<a class="list-group-item"></a>')
+  createItm.attr('data-template-time', 'create_special_template_option')
+  createItm.attr('data-template-name', 'create_special_template_option')
+  const createItmHeading = $(
+    '<h4 class="list-group-item-heading"></h4>'
+  )
+  createItmHeading.html(
+    '<i class="fa fa-plus"></i> Create New Template'
+  )
+  createItm.append(createItmHeading)
+  createItm.click(function (e) {
+    const namec = $(this).attr('data-template-name')
+    selectTemplate(namec)
+  })
+
+  templatesList.append(createItm)
+  selectTemplate((templates && templates.length > 0) ? templates.sort((a, b) => b.time - a.time)[0].name : 'create_special_template_option')
+}
+function selectTemplate (name) {
+  template = name !== 'create_special_template_option' ? templates.find(o => o.name === name) : { name: '', content: '' }
+  // templateTime = time
+  const lastScrollInfo = templatesViewer.getScrollInfo()
+  templatesList.children().removeClass('active')
+  templatesList
+    .find('[data-template-name="' + name + '"]')
+    .addClass('active')
+  const content = template.content
+  templatesViewer.setValue(content)
+  templatesViewer.scrollTo(null, lastScrollInfo.top)
+}
+function initTemplatesViewer () {
+  if (templatesViewer) return
+  const templatesViewerTextArea = document.getElementById('templatesViewer')
+  templatesViewer = CodeMirror.fromTextArea(templatesViewerTextArea, {
+    mode: defaultEditorMode,
+    viewportMargin,
+    lineNumbers: true,
+    lineWrapping: true,
+    showCursorWhenSelecting: true,
+    inputStyle: 'textarea',
+    gutters: ['CodeMirror-linenumbers'],
+    flattenSpans: true,
+    addModeClass: true,
+    readOnly: false,
+    autoRefresh: true,
+    scrollbarStyle: 'overlay'
+  })
+  checkTemplatesViewer()
+}
+export function fixTemplates () {
+  const lst = window.USER_TEMPLATES ? JSON.parse(window.USER_TEMPLATES) : []
+  $(editor.getInputField()).textcomplete([
+    {
+      match: /(^|\n)\?\?(\w*)$/,
+      search: function (term, callback) {
+        const out = []
+        lst.forEach(function (itm) {
+          if (itm.name.startsWith(term)) {
+            out.push(itm.name)
+          }
+        })
+        callback(out)
+      },
+      replace: function (value) {
+        return '$1' + value + ''
+      },
+      template: ffo => {
+        return lst.find(o => o.name === ffo).content
+      }
+    }
+  ])
+}
+$('#templatesModalDelete').click(function () {
+  if (!template) return
+  // confirm
+  const result = confirm(
+    'Are you sure you want to delete the template "' + template.name + '"?'
+  )
+  if (result) {
+    templates = templates ? templates.filter(o => o.name !== template.name) : []
+    $.ajax({ type: 'POST', url: '/me/set_templates', data: JSON.stringify({ templates }), dataType: 'json', contentType: 'application/json; charset=utf-8' })
+      .done(function (data) {
+        window.USER_TEMPLATES = JSON.stringify(data.templates)
+        fixTemplates()
+        parseTemplates(data.templates)
+      })
+      .fail(function (err) {
+        if (debug) {
+          // eslint-disable-next-line no-console
+          console.debug(err)
+        }
+      })
+      .always(function () {
+        // na
+      })
+  }
+})
+$('#templatesModalEdit').click(function () {
+  if (!template) return
+  // confirm
+  if (template.name === '') {
+    const choosenName = prompt('Please enter template name')
+    if (choosenName && choosenName !== '') {
+      template.name = choosenName
+    } else {
+      return
+    }
+  }
+
+  templates = templates.filter(o => o.name !== template.name)
+  templates.push({
+    name: template.name,
+    time: Date.now(),
+    content: templatesViewer.getValue()
+  })
+  $.ajax({ type: 'POST', url: '/me/set_templates', data: JSON.stringify({ templates }), dataType: 'json', contentType: 'application/json; charset=utf-8' })
+    .done(function (data) {
+      window.USER_TEMPLATES = JSON.stringify(data.templates)
+      fixTemplates()
+      // showMessageModal(
+      //   '<i class="fa fa-pencil"></i> Edit Template',
+      //   'Template "' + template.name + '" edited successfully',
+      //   '',
+      //   '',
+      //   false
+      // )
+      parseTemplates(data.templates)
+    })
+    .fail(function (err) {
+      if (debug) {
+        // eslint-disable-next-line no-console
+        console.debug(err)
+      }
+    })
+    .always(function () {
+      // na
+    })
+})
+// modal actions
 let revisions = []
 let revisionViewer = null
 let revisionInsert = []
@@ -2220,13 +2402,17 @@ socket.on = function () {
   }
 }
 const emit = socket.emit
+let initReloaded = false
 socket.emit = function () {
   if (!checkLoginStateChanged() && !needRefresh) {
     emit.apply(socket, arguments)
   }
+  if (!initReloaded && window.USER_TEMPLATES) {
+    initReloaded = true
+    fixTemplates()
+  }
 }
 socket.on('info', function (data) {
-  console.error(data)
   switch (data.code) {
     case 403:
       location.href = serverurl + '/403'
@@ -3905,6 +4091,38 @@ function matchInContainer (text) {
 $(editor.getInputField())
   .textcomplete(
     [
+      // {
+      //   // Container strategy
+      //   templates2: JSON.parse(window.USER_TEMPLATES || []),
+      //   match: /(^|\n)\?\?\?(\s*)(\w*)$/,
+      //   search: function (term, callback) {
+      //     const line = editor.getLine(editor.getCursor().line)
+      //     term = line.match(this.match)[3].trim()
+
+      //     const list = []
+      //     const templates2 = JSON.parse(window.USER_TEMPLATES || [])
+      //     $.map(templates2, function (templatex) {
+      //       if (templatex.name.indexOf(term) === 0 && templatex.name !== term) {
+      //         list.push(templatex)
+      //       }
+      //     })
+      //     callback(list)
+      //   },
+      //   replace: function (lang) {
+      //     return lang.content
+      //   }
+      // done: function () {
+      //   const cursor = editor.getCursor()
+      //   let text = []
+      //   text.push(editor.getLine(cursor.line - 1))
+      //   text.push(editor.getLine(cursor.line))
+      //   text = text.join('\n')
+      //   // console.debug(text);
+      //   if (text === '\n:::') {
+      //     editor.doc.cm.execCommand('goLineUp')
+      //   }
+      // }
+      // },
       {
         // emoji strategy
         match: /(^|\n|\s)\B:([-+\w]*)$/,

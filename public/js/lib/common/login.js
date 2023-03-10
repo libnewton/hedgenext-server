@@ -2,7 +2,6 @@
 /* global Cookies */
 
 import { serverurl } from '../config'
-
 let checkAuth = false
 let profile = null
 let lastLoginState = getLoginState()
@@ -17,8 +16,12 @@ export function resetCheckAuth () {
   checkAuth = false
 }
 
-export function setLoginState (bool, id) {
+export function setLoginState (bool, id, templates) {
   window.LOGGED_IN = bool
+  if (templates) {
+    window.USER_TEMPLATES = templates
+  }
+
   Cookies.set('loginstate', bool, {
     expires: 365,
     sameSite: window.cookiePolicy,
@@ -72,10 +75,10 @@ export function checkIfAuth (yesCallback, noCallback) {
         if (data && data.status === 'ok') {
           profile = data
           yesCallback(profile)
-          setLoginState(true, data.id)
+          setLoginState(true, data.id, data.templates)
         } else {
           noCallback()
-          setLoginState(false)
+          setLoginState(false, null, null)
         }
       })
       .fail(() => {

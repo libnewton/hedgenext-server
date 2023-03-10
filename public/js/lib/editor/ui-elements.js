@@ -78,7 +78,8 @@ export const getUIElements = () => ({
   modal: {
     snippetImportProjects: $('#snippetImportModalProjects'),
     snippetImportSnippets: $('#snippetImportModalSnippets'),
-    revision: $('#revisionModal')
+    revision: $('#revisionModal'),
+    templates: $('#templatesModal')
   }
 })
 

@@ -4,6 +4,7 @@ composer.phar
 composer.lock
 .env.*.php
 .env.php
+.env
 .DS_Store
 .idea/
 Thumbs.db

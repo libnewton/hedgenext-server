@@ -1,3 +1,17 @@
+# HedgeNext
+- Fork of [HedgeDoc](https://github.com/hedgedoc/hedgedoc) focussed on Nextcloud integration.
+- Various features and customizations.
+### Quickstart
+- copy the `docker-compose.yml` and the `.env.example` on your server.
+- move `.env.example` to `.env`
+- edit the values in `.env`
+- `docker-compose up -d`
+
+
+
+---
+orginal readme:
+
 ![HedgeDoc Logo](docs/content/images/hedgedoc_logo_black.svg)
 
 # HedgeDoc

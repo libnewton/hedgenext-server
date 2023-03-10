@@ -28,3 +28,4 @@ public/uploads/*
 !public/uploads/.gitkeep
 
 site/
+.env

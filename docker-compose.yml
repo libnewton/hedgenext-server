@@ -1,0 +1,48 @@
+version: '3'
+services:
+  database:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart: unless-stopped
+  app:
+    image: libnewton/hedgenext:latest
+    environment:
+      - CMD_DB_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+      - CMD_DOMAIN=${CMD_HOST}
+      - CMD_PORT=${CMD_PORT}
+      - CMD_MEDIA_BACKEND=webdav
+      - CMD_DATABASE_DIALECT=postgres
+      - CMD_DATABASE_TYPE=postgres
+      - CMD_DATABASE_HOST=${DATABASE_HOST}
+      - CMD_DATABASE_NAME=${DATABASE_NAME}
+      - CMD_DATABASE_PORT=${DATABASE_PORT}
+      - CMD_DATABASE_USER=${DATABASE_USER}
+      - CMD_DATABASE_PASS=${DATABASE_PASSWORD}
+      - CMD_GUEST_ACCESS=read
+      - GOTENBERG_PDF=${GOTENBERG_PDF}
+      - NC_USER=${NEXTCLOUD_CDN_USERNAME}
+      - NC_PASSWORD=${NEXTCLOUD_CDN_PASSWORD}
+      - NC_HOST=${NEXTCLOUD_HOST}
+      - NC_FOLDER=${NEXTCLOUD_CDN_FOLDER}
+      - NC_SECRET=${NEXTCLOUD_SECRET}
+      - CMD_HOST=0.0.0.0
+      - CMD_URL_ADDPORT=${CMD_URL_ADDPORT}
+      - CMD_ALLOW_GRAVATAR=false
+      - CMD_PROTOCOL_USESSL=${CMD_PROTOCOL_USESSL}
+      - CMD_ALLOW_ANONYMOUS=false
+      - CMD_SESSION_SECRET=${CMD_SESSION_SECRET}
+      - CMD_EMAIL=false
+      - CMD_ALLOW_EMAIL_REGISTER=false
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - database
+
+volumes:
+  database:

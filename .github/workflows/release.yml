@@ -1,7 +1,6 @@
   name: Push into main branch
   on:
-    push:
-      branches: [ main ]
+    release
 
   jobs:
     context:

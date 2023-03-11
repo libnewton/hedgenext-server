@@ -1517,17 +1517,18 @@ export function fixTemplates () {
       search: function (term, callback) {
         const out = []
         lst.forEach(function (itm) {
-          if (itm.name.startsWith(term)) {
-            out.push(itm.name)
+          if (itm.name.startsWith(term) && itm.content) {
+            out.push({ name: itm.name, content: itm.name, content2: itm.content })
           }
         })
         callback(out)
       },
       replace: function (value) {
-        return '$1' + value + ''
+        return '$1' + value.content2 + ''
       },
       template: ffo => {
-        return lst.find(o => o.name === ffo).content
+        const retval = lst.find(o => o.name === ffo.name)
+        return retval ? retval.name : null
       }
     }
   ])

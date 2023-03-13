@@ -49,23 +49,9 @@
             <div class="footer">
                 <div class="unselectable hidden-print gray-font">
                     <small>
-                        <span>
-                            <% if(lastchangeuserprofile) { %>
-                                <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(<%- lastchangeuserprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- lastchangeuserprofile.name %>"></i></span>
-                            <% } else { %>
-                                <span class="ui-no-lastchangeuser">&thinsp;<i class="fa fa-clock-o fa-fw"></i></span>
-                            <% } %>
-                            &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
-                            <span class="ui-lastchange text-uppercase" data-createtime="<%- createtime %>" data-updatetime="<%- updatetime %>"></span>
-                        </span>
-                        <span class="pull-right"><%- viewcount %> views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a><a class="ui-print" href="" title="Open print view"><i class="fa fa-fw fa-print"></i></a></span>
+                            <a class="ui-print" href="" title="Open print view"><i class="fa fa-fw fa-print"></i></a></span>
                         <br>
-                        <% if(ownerprofile && owner !== lastchangeuser) { %>
-                        <span class="ui-owner">
-                            &thinsp;<i class="ui-user-icon small" style="background-image: url(<%- ownerprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- ownerprofile.name %>"></i>
-                            &nbsp;<span class="text-uppercase">owned this note</span>
-                        </span>
-                        <% } %>
+ 
                     </small>
                 </div>
             </div>

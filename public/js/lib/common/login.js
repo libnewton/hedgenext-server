@@ -7,7 +7,6 @@ let profile = null
 let lastLoginState = getLoginState()
 let lastUserId = getUserId()
 let loginStateChangeEvent = null
-
 export function setloginStateChangeEvent (func) {
   loginStateChangeEvent = func
 }
@@ -45,7 +44,7 @@ export function setLoginState (bool, id, templates) {
 }
 
 export function checkLoginStateChanged () {
-  if (getLoginState() !== lastLoginState || getUserId() !== lastUserId) {
+  if (getLoginState() !== lastLoginState || (getUserId() !== lastUserId && lastUserId != null)) {
     if (loginStateChangeEvent) setTimeout(loginStateChangeEvent, 100)
     return true
   } else {
@@ -69,7 +68,11 @@ export function clearLoginState () {
 export function checkIfAuth (yesCallback, noCallback) {
   const cookieLoginState = getLoginState()
   if (checkLoginStateChanged()) checkAuth = false
-  if (!checkAuth || typeof cookieLoginState === 'undefined') {
+  const lastCheck = parseInt(window.localStorage.getItem('lastCheck') || 0)
+  const currentTimestamp = Math.floor(Date.now() * 1000)
+  if ((!checkAuth || typeof cookieLoginState === 'undefined') && (currentTimestamp - lastCheck) > 2000 * 1000) {
+    console.error('checkIfAuth', lastCheck)
+    window.localStorage.setItem('lastCheck', currentTimestamp)
     $.get(`${serverurl}/me`)
       .done(data => {
         if (data && data.status === 'ok') {
@@ -77,6 +80,7 @@ export function checkIfAuth (yesCallback, noCallback) {
           yesCallback(profile)
           setLoginState(true, data.id, data.templates)
         } else {
+          checkAuth = true
           noCallback()
           setLoginState(false, null, null)
         }

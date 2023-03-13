@@ -30,38 +30,21 @@
 </head>
 
 <body style="display:none;">
-    <div class="ui-infobar container-fluid unselectable hidden-print">
-        <small>
-            <span>
-                <% if(lastchangeuserprofile) { %>
-                    <span class="ui-lastchangeuser">&thinsp;<i class="ui-user-icon small" style="background-image: url(<%- lastchangeuserprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- lastchangeuserprofile.name %>"></i></span>
-                <% } else { %>
-                  <span class="ui-no-lastchangeuser">&thinsp;<i class="fa fa-clock-o fa-fw" style="width: 18px;"></i></span>
-                <% } %>
-                &nbsp;<span class="text-uppercase ui-status-lastchange"></span>
-                <span class="ui-lastchange text-uppercase" data-createtime="<%- createtime %>" data-updatetime="<%- updatetime %>"></span>
-            </span>
-            <span class="pull-right"><%- viewcount %> views <a href="#" class="ui-edit" title="Edit this note"><i class="fa fa-fw fa-pencil"></i></a></span>
-            <br>
-            <% if(ownerprofile && owner !== lastchangeuser) { %>
-            <span class="ui-owner">
-                &thinsp;<i class="ui-user-icon small" style="background-image: url(<%- ownerprofile.photo %>);" data-toggle="tooltip" data-placement="right" title="<%- ownerprofile.name %>"></i>
-                &nbsp;<span class="text-uppercase">owned this note</span>
-            </span>
-            <% } %>
-        </small>
-    </div>
-    <div id="doc" class="container markdown-body" <% if (lang) { %> lang="<%= lang %>"<% } %>><%= body %></div>
-    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
-        <div class="pull-right dropdown">
-            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
-                <i class="fa fa-bars"></i>
-            </a>
-            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
-            </ul>
+
+    <div style="margin-top: -2rem;" id="doc" class="container markdown-body" <% if (lang) { %> lang="<%= lang %>"<% } %>><%= body %></div>
+    <div style="display: none">
+        <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+            <div class="pull-right dropdown">
+                <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                </ul>
+            </div>
         </div>
+        <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="display:none;"></div>
+    
     </div>
-    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="display:none;"></div>
 
 </body>
 

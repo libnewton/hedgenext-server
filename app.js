@@ -18,7 +18,6 @@ const passportSocketIo = require('passport.socketio')
 const helmet = require('helmet')
 const i18n = require('i18n')
 const flash = require('connect-flash')
-const apiMetrics = require('prometheus-api-metrics')
 
 // core
 const config = require('./lib/config')
@@ -26,7 +25,6 @@ const logger = require('./lib/logger')
 const errors = require('./lib/errors')
 const models = require('./lib/models')
 const csp = require('./lib/csp')
-const metrics = require('./lib/prometheus')
 const { useUnless } = require('./lib/utils')
 
 const supportedLocalesList = Object.keys(require('./locales/_supported.json'))
@@ -75,8 +73,6 @@ app.use(morgan('combined', {
 }))
 
 // Register prometheus metrics endpoint
-app.use(apiMetrics())
-metrics.setupCustomPrometheusMetrics()
 
 // socket io
 const io = require('socket.io')(server, { cookie: false })
@@ -146,7 +142,7 @@ app.use(i18n.init)
 // static files
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: config.staticCacheTime, index: false, redirect: false }))
 app.use('/docs', express.static(path.resolve(__dirname, config.docsPath), { maxAge: config.staticCacheTime, redirect: false }))
-app.use('/uploads', express.static(path.resolve(__dirname, config.uploadsPath), { maxAge: config.staticCacheTime, redirect: false }))
+// app.use('/uploads', express.static(path.resolve(__dirname, config.uploadsPath), { maxAge: config.staticCacheTime, redirect: false }))
 app.use('/default.md', express.static(path.resolve(__dirname, config.defaultNotePath), { maxAge: config.staticCacheTime }))
 
 // session

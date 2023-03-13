@@ -15,7 +15,7 @@ backups/
 *.pid
 *.log
 *.sqlite
-
+*.json.env
 # ignore config files
 config.env.json
 .sequelizerc

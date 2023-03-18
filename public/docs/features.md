@@ -429,6 +429,8 @@ Subscript: H~2~O
 
 ==Marked text==
 
+%%Other Color%%
+
 #### Blockquotes
 
 > Blockquotes can also be nested...

@@ -2,6 +2,9 @@
 type: slide
 slideOptions:
   transition: slide
+  center: false
+  progress: false
+  controls: false
 ---
 
 # Slide example

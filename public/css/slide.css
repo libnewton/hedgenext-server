@@ -351,3 +351,27 @@ html, body {
 .print-pdf .footer {
     display: none;
 }
+
+/* nunito-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/nunito-v25-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('/fonts/nunito-v25-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/fonts/nunito-v25-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('/fonts/nunito-v25-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('/fonts/nunito-v25-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('/fonts/nunito-v25-latin-regular.svg#Nunito') format('svg'); /* Legacy iOS */
+  }
+
+  
+  .reveal .slides section[data-vertical-align-top]{
+	top: 0 !important;
+}
+.reveal .slides p { text-align:left!important; }
+.reveal .slides h1,h2 { margin-bottom: 4.5rem!important;}
+.reveal h2 {font-family: Nunito; font-size: 7rem;}
+.reveal h1 {font-family: Nunito; font-size: 8.5rem;}
+.reveal {font-size: 35px;}

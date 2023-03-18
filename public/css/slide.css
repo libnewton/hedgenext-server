@@ -371,7 +371,7 @@ html, body {
 	top: 0 !important;
 }
 .reveal .slides p { text-align:left!important; }
-.reveal .slides h1,h2 { margin-bottom: 4.5rem!important;}
+.reveal .slides h1, .reveal .slides h2 { margin-bottom: 4.5rem!important;}
 .reveal h2 {font-family: Nunito; font-size: 7rem;}
 .reveal h1 {font-family: Nunito; font-size: 8.5rem;}
 .reveal {font-size: 35px;}

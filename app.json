@@ -1,14 +1,14 @@
 {
-    "name": "HedgeDoc",
+    "name": "HedgeNext",
     "description": "The best platform to write and share markdown.",
     "keywords": [
         "Collaborative",
         "Markdown",
         "Notes"
     ],
-    "website": "https://hedgedoc.org",
-    "repository": "https://github.com/hedgedoc/hedgedoc",
-    "logo": "https://github.com/hedgedoc/hedgedoc-logo/raw/main/LOGOTYPE/PNG/HedgeDoc-Logo%201.png",
+    "website": "https://github.com/libnewton/hedgenext-server",
+    "repository": "https://github.com/libnewton/hedgenext-server",
+    "logo": "https://raw.githubusercontent.com/libnewton/hedgenext-server/main/public/icons/logo.png",
     "success_url": "/",
     "env": {
         "NPM_CONFIG_PRODUCTION": {

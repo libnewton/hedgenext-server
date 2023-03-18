@@ -1,5 +1,7 @@
 # Release Notes
 
+# CAUTION: This is outdated and not reflective of the current changelog of HedgeNext.
+
 ## <i class="fa fa-tag"></i> 1.9.7 <i class="fa fa-calendar-o"></i> 2023-02-19
 
 ### Bugfixes

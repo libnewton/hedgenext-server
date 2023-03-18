@@ -3,6 +3,8 @@ tags: features, cool, updated
 ---
 # Features
 
+# CAUTION: This is a fork of HedgeDoc. The feature list below might not reflect the functionality of HedgeNext and is to be updated.
+
 ## Introduction
 
 **HedgeDoc** is a real-time, multi-platform collaborative markdown note editor.

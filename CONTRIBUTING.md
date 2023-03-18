@@ -1,3 +1,6 @@
+# THIS PAGE IS OUTDATED AND REFERS TO CONTRIBUTING TO UPSTREAM HEDGEDOC
+---
+
 # Contributing to HedgeDoc
 
 HedgeDoc is a volunteer effort.

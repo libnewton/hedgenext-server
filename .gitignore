@@ -29,3 +29,4 @@ public/uploads/*
 
 site/
 .env
+config.2.json

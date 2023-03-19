@@ -703,3 +703,35 @@ export default class Editor {
     return this.editor
   }
 }
+addEventListener('DOMContentLoaded', (event) => {
+  const targetNode = document.querySelector('.CodeMirror-code')
+  if (targetNode) {
+    const observerconfig = {
+      attributes: false,
+      childList: true,
+      subtree: true
+    }
+    const spanElements0 = targetNode.querySelectorAll('span.cm-url:not(.CodeMirror-matchingbracket)')
+    for (const span0 of spanElements0) {
+      if (span0.textContent.match(/\(https:\/\/.+\/s\/.+\/preview( =\d+x)?\)/)) {
+        span0.textContent = '(' + span0.textContent.split('/preview')[1]
+      }
+    }
+    const callback = function (mutationsList, observer) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          const spanElements = targetNode.querySelectorAll('span.cm-url:not(.CodeMirror-matchingbracket)')
+          for (const span of spanElements) {
+            if ([...mutation.addedNodes].some(o => o && o.querySelector && o.querySelector('span.cm-url') === span) || (mutation.type === 'characterData' && mutation.target === span.firstChild)) {
+              if (span.textContent.match(/\(https:\/\/.+\/s\/.+\/preview( =\d+x)?\)/)) {
+                span.textContent = '(' + span.textContent.split('/preview')[1]
+              }
+            }
+          }
+        }
+      }
+    }
+    const observer = new MutationObserver(callback)
+    observer.observe(targetNode, observerconfig)
+  }
+})

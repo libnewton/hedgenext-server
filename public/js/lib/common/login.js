@@ -71,7 +71,6 @@ export function checkIfAuth (yesCallback, noCallback) {
   const lastCheck = parseInt(window.localStorage.getItem('lastCheck') || 0)
   const currentTimestamp = Math.floor(Date.now() * 1000)
   if ((!checkAuth || typeof cookieLoginState === 'undefined') && (currentTimestamp - lastCheck) > 2000 * 1000) {
-    console.error('checkIfAuth', lastCheck)
     window.localStorage.setItem('lastCheck', currentTimestamp)
     $.get(`${serverurl}/me`)
       .done(data => {

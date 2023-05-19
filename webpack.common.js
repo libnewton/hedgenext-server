@@ -304,7 +304,7 @@ module.exports = {
         use: {
           loader: 'imports-loader',
           options: {
-            imports: ['default codemirror CodeMirror']
+            imports: ['default @hedgedoc/codemirror-5 CodeMirror']
           }
         }
       },

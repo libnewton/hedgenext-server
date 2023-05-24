@@ -196,6 +196,7 @@ app.set('view engine', 'ejs')
 app.locals.serverURL = config.serverURL
 app.locals.sourceURL = config.sourceURL
 app.locals.allowAnonymous = false
+app.locals.freeToken = config.freeToken
 app.locals.allowAnonymousEdits = true
 app.locals.authProviders = {
   facebook: false,

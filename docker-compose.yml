@@ -10,7 +10,7 @@ services:
       - database:/var/lib/postgresql/data
     restart: unless-stopped
   app:
-    image: libnewton/hedgenext:latest
+    image: ghcr.io/libnewton/hedgenext-server:latest
     environment:
       - CMD_DB_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
       - CMD_DOMAIN=${CMD_HOST}

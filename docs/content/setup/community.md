@@ -69,9 +69,9 @@ using the button below. This will run the official Docker image from [quay.io](h
 
 ### Arch Linux
 
-HedgeDoc is available in the Arch Linux _community_ repository.
+HedgeDoc is available in the Arch Linux _extra_ repository.
 
-[Link to the package](https://archlinux.org/packages/community/any/hedgedoc/)
+[Link to the package](https://archlinux.org/packages/extra/any/hedgedoc/)
 
 ### FreeBSD
 
